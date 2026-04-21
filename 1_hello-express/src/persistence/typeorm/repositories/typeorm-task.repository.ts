@@ -41,4 +41,20 @@ export class TypeOrmTaskRepository implements TasksRepository {
             skip
         });
     }
+
+    async finishTask(id: number): Promise<Task | null> {
+        const task = await this.repository.findOneBy({ id });
+
+        if (!task) {
+            return null;
+        }
+
+        if (task.status === "finished") {
+            return task;
+        }
+
+        task.status = "finished";
+
+        return await this.repository.save(task);
+    }
 }

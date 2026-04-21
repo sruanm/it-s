@@ -1,11 +1,10 @@
 import { Router } from "express";
-import type { CreateTaskDTO } from "../../core/dtos/task.dto.js";
+import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../../core/dtos/task.dto.js";
 import { createTaskUseCase } from "../../core/use-cases/create-task.js";
 import { listAllTasks } from "../../core/use-cases/list-tasks.js";
+import { finishTask } from "../../core/use-cases/finish-task.js";
 
 export const taskRouter = Router()
-
-taskRouter.get("/hello", (_req, res) => res.send("Hello World!"))
 
 taskRouter.post("/", async function (req, res) {
     const body = req.body as Partial<CreateTaskDTO> | undefined;
@@ -28,4 +27,16 @@ taskRouter.get("/", async function (req, res) {
     const tasks = await listAllTasks(queryParams);
 
     return res.status(200).json(tasks)
+})
+
+taskRouter.put("/:id/finish", async function (req, res) {
+    const id = parseInt(req.params.id);
+
+    if (isNaN(id)) {
+        return res.status(400).json({ error: "param id must be a string" })
+    }
+
+    const updatedTask = await finishTask(id);
+
+    return res.status(200).json(updatedTask);
 })
