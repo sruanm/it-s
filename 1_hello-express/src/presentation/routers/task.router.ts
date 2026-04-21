@@ -21,8 +21,11 @@ taskRouter.post("/", async function (req, res) {
     return res.status(201).json(record);
 })
 
-taskRouter.get("/", async function (_req, res) {
-    const tasks = await listAllTasks()
+
+taskRouter.get("/", async function (req, res) {
+    const queryParams = req.query as ListTasksQueryParamsDTO;
+
+    const tasks = await listAllTasks(queryParams);
 
     return res.status(200).json(tasks)
 })
