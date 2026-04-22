@@ -3,7 +3,6 @@ import cors from 'cors'
 import 'reflect-metadata'
 
 import { AppDataSource } from './persistence/typeorm/data-source.js'
-import { logger } from './lib/logger.js'
 import { taskRouter } from './presentation/routers/task.router.js'
 import { errorMiddleware, logMidlleware } from './presentation/middlewares.js'
 import { authRouter } from './presentation/routers/auth.router.js'
@@ -26,12 +25,12 @@ async function main() {
     try {
         await AppDataSource.initialize()
     } catch (err) {
-        logger.error(err);
+        console.error(err);
         return;
     }
 
     app.listen(PORT, () => {
-        logger.info("Server up!")
+        console.info("Server up!")
     })
 }
 
