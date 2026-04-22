@@ -1,4 +1,4 @@
-import { Entity, Column } from "typeorm";
+import { Entity, Column, OneToMany, ManyToOne, type Relation } from "typeorm";
 
 @Entity()
 export class Task {
@@ -15,6 +15,9 @@ export class Task {
 
     @Column({ default: "pending" })
     status!: "pending" | "finished";
+
+    @ManyToOne(() => User, (user) => user.tasks)
+    user!: Relation<User>
 }
 
 @Entity()
@@ -27,4 +30,7 @@ export class User {
 
     @Column({ select: false })
     password!: string;
+
+    @OneToMany(() => Task, (task) => task.user)
+    tasks!: Relation<Task[]>
 }
