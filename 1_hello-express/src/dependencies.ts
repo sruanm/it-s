@@ -1,9 +1,8 @@
-import type { TasksRepository, UserRepository } from "./core/ports/repositories.js"
-import { TypeOrmTaskRepository } from "./persistence/repositories/typeorm-task.repository.js"
-import { TypeOrmUserRepository } from "./persistence/repositories/typeorm-user.repository.js"
+import { TaskRepository } from "./persistence/repositories/task.repository.js"
+import { UserRepository } from "./persistence/repositories/user.repository.js"
 
-const taskRepository: TasksRepository = new TypeOrmTaskRepository()
-const userRepository: UserRepository = new TypeOrmUserRepository()
+const taskRepository = new TaskRepository()
+const userRepository = new UserRepository()
 
 export const injector = {
     taskRepository,

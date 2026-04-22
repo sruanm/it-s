@@ -1,9 +1,8 @@
 import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../../core/dtos/task.dto.js";
-import type { TasksRepository } from "../../core/ports/repositories.js";
 import { AppDataSource } from "../data-source.js";
 import { Task } from "../models.js";
 
-export class TypeOrmTaskRepository implements TasksRepository {
+export class TaskRepository {
     private repository = AppDataSource.getRepository(Task)
 
     async createTask(content: CreateTaskDTO): Promise<Task> {
