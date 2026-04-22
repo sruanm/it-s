@@ -15,18 +15,28 @@ function parseSignBody(body: Partial<SignRequestDTO> | undefined) {
     return { email, password }
 }
 
-authRouter.post("/signup", async function (req, res) {
-    const payload = parseSignBody(req.body)
+authRouter.post("/signup", async function (req, res, next) {
+    try {
 
-    const newUser = await signupUseCase(payload);
+        const payload = parseSignBody(req.body)
 
-    return res.status(200).json(newUser);
+        const newUser = await signupUseCase(payload);
+
+        return res.status(200).json(newUser);
+    } catch (err) {
+        return next(err)
+    }
 })
 
-authRouter.post("/login", async function (req, res) {
-    const payload = parseSignBody(req.body)
+authRouter.post("/login", async function (req, res, next) {
+    try {
 
-    const user = await loginUseCase(payload);
+        const payload = parseSignBody(req.body)
 
-    return res.status(200).json(user)
+        const user = await loginUseCase(payload);
+
+        return res.status(200).json(user)
+    } catch (err) {
+        return next(err);
+    }
 })
