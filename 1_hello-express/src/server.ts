@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import 'reflect-metadata'
+
 import { AppDataSource } from './persistence/typeorm/data-source.js'
 import { logger } from './lib/logger.js'
 import { taskRouter } from './presentation/routers/task.router.js'
@@ -10,13 +11,13 @@ async function main() {
     const app = express()
     const PORT = 3000;
 
-    app.use(express.static("public"))
-
     app.use(express.json())
     app.use(cors())
-    app.use(logMidlleware)
 
-    app.use("/tarefas", taskRouter);
+    app.use(logMidlleware)
+    app.use(express.static("public"))
+
+    app.use("/tasks", taskRouter);
 
     app.use(errorMiddleware)
 

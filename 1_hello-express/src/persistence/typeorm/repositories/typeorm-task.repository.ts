@@ -1,5 +1,5 @@
 import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../../../core/dtos/task.dto.js";
-import type { TasksRepository } from "../../../core/ports/task.repository.js";
+import type { TasksRepository } from "../../../core/repositories.port.js";
 import { AppDataSource } from "../data-source.js";
 import { Task } from "../models.js";
 
