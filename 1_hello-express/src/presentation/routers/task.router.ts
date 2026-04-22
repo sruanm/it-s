@@ -1,8 +1,6 @@
 import { Router } from "express";
 import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../../core/dtos/task.dto.js";
-import { createTaskUseCase } from "../../core/use-cases/task.logic.js";
-import { listAllTasksUseCase } from "../../core/use-cases/task.logic.js";
-import { finishTaskUseCase } from "../../core/use-cases/task.logic.js";
+import { TaskController } from "../../controllers/task.controller.js";
 
 export const taskRouter = Router()
 
@@ -18,7 +16,7 @@ taskRouter.post(
                 })
             }
 
-            const record = await createTaskUseCase(body as CreateTaskDTO)
+            const record = await TaskController.create(body as CreateTaskDTO)
 
             return res.status(201).json(record);
         } catch (err) {
@@ -27,13 +25,11 @@ taskRouter.post(
     }
 )
 
-
-
 taskRouter.get("/", async function (req, res, next) {
     try {
         const queryParams = req.query as ListTasksQueryParamsDTO;
 
-        const tasks = await listAllTasksUseCase(queryParams);
+        const tasks = await TaskController.listAll(queryParams);
 
         return res.status(200).json(tasks)
     } catch (err) {
@@ -50,7 +46,7 @@ taskRouter.put("/:id/finish", async function (req, res, next) {
             return res.status(400).json({ error: "param id must be a string" })
         }
 
-        const updatedTask = await finishTaskUseCase(id);
+        const updatedTask = await TaskController.finish(id);
 
         return res.status(200).json(updatedTask);
     } catch (err) {
