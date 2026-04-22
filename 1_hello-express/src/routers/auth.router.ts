@@ -1,42 +1,8 @@
 import { Router } from "express";
-import type { SignRequestDTO } from "../core/dtos/auth.dto.js";
-import { loginUseCase, signupUseCase } from "../core/use-cases/auth.logic.js";
-import { AppError } from "../core/errors.js";
+import { AuthController } from "../controllers/auth.controller.js";
 
 export const authRouter = Router();
 
-function parseSignBody(body: Partial<SignRequestDTO> | undefined) {
-    const [email, password] = [body?.email?.trim(), body?.password?.trim()]
+authRouter.post("/signup", AuthController.signup);
 
-    if (!email || !password) {
-        throw new AppError(400, "email and password must be sent")
-    }
-
-    return { email, password }
-}
-
-authRouter.post("/signup", async function (req, res, next) {
-    try {
-
-        const payload = parseSignBody(req.body)
-
-        const newUser = await signupUseCase(payload);
-
-        return res.status(200).json(newUser);
-    } catch (err) {
-        return next(err)
-    }
-})
-
-authRouter.post("/login", async function (req, res, next) {
-    try {
-
-        const payload = parseSignBody(req.body)
-
-        const user = await loginUseCase(payload);
-
-        return res.status(200).json(user)
-    } catch (err) {
-        return next(err);
-    }
-})
+authRouter.post("/login", AuthController.login);

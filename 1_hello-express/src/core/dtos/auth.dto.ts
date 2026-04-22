@@ -3,7 +3,7 @@ export interface SignRequestDTO {
     password: string;
 }
 
-export interface SignResponseDTO {
+export interface SignupResponseDTO {
     id: number;
     email: string;
 }
