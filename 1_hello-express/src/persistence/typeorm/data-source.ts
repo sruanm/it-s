@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
 import { env } from '../../lib/env.js'
-import { Task } from './models/task.model.js'
+import { Task } from './models.js'
 
 export const AppDataSource = new DataSource({
     type: "sqlite",

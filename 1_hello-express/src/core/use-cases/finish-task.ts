@@ -1,5 +1,5 @@
 import { injector } from "../../dependencies.js";
-import type { Task } from "../../persistence/typeorm/models/task.model.js";
+import type { Task } from "../../persistence/typeorm/models.js";
 import { NotFoundError } from "../errors.js";
 
 export async function finishTask(id: number): Promise<Task> {

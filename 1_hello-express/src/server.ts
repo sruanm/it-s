@@ -4,12 +4,13 @@ import 'reflect-metadata'
 import { AppDataSource } from './persistence/typeorm/data-source.js'
 import { logger } from './lib/logger.js'
 import { taskRouter } from './presentation/routers/task.router.js'
-import { logMidlleware } from './presentation/middlewares/log.middleware.js'
-import { errorMiddleware } from './presentation/middlewares/error.middleware.js'
+import { errorMiddleware, logMidlleware } from './presentation/middlewares.js'
 
 async function main() {
     const app = express()
     const PORT = 3000;
+
+    app.use(express.static("public"))
 
     app.use(express.json())
     app.use(cors())
