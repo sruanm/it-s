@@ -6,6 +6,7 @@ import { AppDataSource } from './persistence/typeorm/data-source.js'
 import { logger } from './lib/logger.js'
 import { taskRouter } from './presentation/routers/task.router.js'
 import { errorMiddleware, logMidlleware } from './presentation/middlewares.js'
+import { authRouter } from './presentation/routers/auth.router.js'
 
 async function main() {
     const app = express()
@@ -17,6 +18,7 @@ async function main() {
     app.use(logMidlleware)
     app.use(express.static("public"))
 
+    app.use("/auth", authRouter);
     app.use("/tasks", taskRouter);
 
     app.use(errorMiddleware)

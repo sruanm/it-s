@@ -16,3 +16,15 @@ export class Task {
     @Column({ default: "pending" })
     status!: "pending" | "finished";
 }
+
+@Entity()
+export class User {
+    @Column({ primary: true, generated: true })
+    id!: number
+
+    @Column({ unique: true })
+    email!: string
+
+    @Column({ select: false })
+    password!: string;
+}
