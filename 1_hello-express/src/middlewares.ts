@@ -1,8 +1,8 @@
 import type { NextFunction, Request, Response } from 'express'
-import { UnauthorizedError } from './core/errors.js';
-import { jwtProvider } from './lib/jwt.js';
-import { AppDataSource } from './persistence/data-source.js';
-import { User } from './persistence/models.js';
+import { UnauthorizedError } from './errors.js';
+import { jwtProvider } from './jwt.js';
+import { AppDataSource } from './data-source.js';
+import { User } from './models/entities.js';
 
 export function logMidlleware(req: Request, _res: Response, next: NextFunction) {
     console.info(`[${req.method}] ${req.url}`)

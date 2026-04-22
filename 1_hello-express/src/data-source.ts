@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm'
-import { Task, User } from './models.js'
-import { env } from '../lib/env.js'
+import { Task, User } from './models/entities.js'
+import { env } from './env.js'
 
 export const AppDataSource = new DataSource({
     type: "better-sqlite3",

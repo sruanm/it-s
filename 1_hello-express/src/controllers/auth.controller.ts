@@ -1,11 +1,28 @@
 import bcrypt from 'bcryptjs'
-import type { SignRequestDTO, LoginResponseDTO, SignupResponseDTO } from '../core/dtos/auth.dto.js';
-import { AppError, UnauthorizedError } from '../core/errors.js';
-import { jwtProvider } from '../lib/jwt.js';
-import { AppDataSource } from '../persistence/data-source.js';
-import { User } from '../persistence/models.js';
-import { env } from '../lib/env.js';
+import { AppError, UnauthorizedError } from '../errors.js';
+import { jwtProvider } from '../jwt.js';
+import { AppDataSource } from '../data-source.js';
+import { User } from '../models/entities.js';
+import { env } from '../env.js';
 import type { Request, Response, NextFunction } from 'express';
+
+export interface SignRequestDTO {
+    email: string;
+    password: string;
+}
+
+export interface SignupResponseDTO {
+    id: number;
+    email: string;
+}
+
+export interface LoginResponseDTO {
+    user: {
+        id: number
+        email: string
+    }
+    token: string
+}
 
 function parseSignBody(body: Partial<SignRequestDTO> | undefined) {
     const [email, password] = [body?.email?.trim(), body?.password?.trim()]

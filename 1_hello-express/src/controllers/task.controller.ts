@@ -1,7 +1,20 @@
-import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../core/dtos/task.dto.js";
-import { NotFoundError } from "../core/errors.js";
-import { AppDataSource } from "../persistence/data-source.js";
-import { Task } from "../persistence/models.js";
+import { NotFoundError } from "../errors.js";
+import { AppDataSource } from "../data-source.js";
+import { Task } from "../models/entities.js";
+
+export interface CreateTaskDTO {
+    title: string;
+    description?: string
+}
+
+export interface ListTasksQueryParamsDTO extends Partial<{
+    orderBy: string;
+
+    limit: string;
+    page: string;
+
+    status: string;
+}> { }
 
 
 export class TaskController {
