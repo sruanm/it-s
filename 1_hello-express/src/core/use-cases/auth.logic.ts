@@ -1,5 +1,7 @@
 import { injector } from "../../dependencies.js";
-import type { SignRequestDTO, SignResponseDTO } from "../dtos/auth.dto.js";
+import { env } from "../../lib/env.js";
+import { jwtProvider } from "../../lib/jwt.js";
+import type { LoginResponseDTO, SignRequestDTO, SignResponseDTO } from "../dtos/auth.dto.js";
 import { AppError, UnauthorizedError } from "../errors.js";
 import bcrypt from 'bcryptjs'
 
@@ -17,7 +19,7 @@ export async function signupUseCase({ email, password }: SignRequestDTO): Promis
     return await userRepository.createUser({ email, password: hashedPassword })
 }
 
-export async function loginUseCase({ email, password }: SignRequestDTO): Promise<SignResponseDTO> {
+export async function loginUseCase({ email, password }: SignRequestDTO): Promise<LoginResponseDTO> {
     const findedUser = await injector.userRepository.findByEmail(email);
     const unauthorizedErr = new UnauthorizedError("email or password invalid")
 
@@ -31,8 +33,13 @@ export async function loginUseCase({ email, password }: SignRequestDTO): Promise
         throw unauthorizedErr;
     }
 
+    const token = jwtProvider.encode(findedUser.email, env.JWT_EXPIRES_IN_SEC)
+
     return {
-        id: findedUser.id,
-        email
+        user: {
+            id: findedUser.id,
+            email
+        },
+        token
     };
 }

@@ -4,7 +4,7 @@ import 'reflect-metadata'
 
 import { AppDataSource } from './persistence/data-source.js'
 import { taskRouter } from './presentation/routers/task.router.js'
-import { errorMiddleware, logMidlleware } from './presentation/middlewares.js'
+import { errorMiddleware, logMidlleware, tokenMiddleware } from './presentation/middlewares.js'
 import { authRouter } from './presentation/routers/auth.router.js'
 
 async function main() {
@@ -18,6 +18,8 @@ async function main() {
     app.use(express.static("public"))
 
     app.use("/auth", authRouter);
+
+    app.use(tokenMiddleware);
     app.use("/tasks", taskRouter);
 
     app.use(errorMiddleware)
