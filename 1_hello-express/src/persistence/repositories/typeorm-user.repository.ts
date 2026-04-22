@@ -1,5 +1,5 @@
-import type { SignRequestDTO } from "../../../core/dtos/auth.dto.js";
-import type { UserRepository } from "../../../core/repositories.port.js";
+import type { SignRequestDTO } from "../../core/dtos/auth.dto.js";
+import type { UserRepository } from "../../core/ports/repositories.js";
 import { AppDataSource } from "../data-source.js";
 import { User } from "../models.js";
 

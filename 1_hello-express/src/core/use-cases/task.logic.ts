@@ -1,5 +1,5 @@
 import { injector } from "../../dependencies.js";
-import type { Task } from "../../persistence/typeorm/models.js";
+import type { Task } from "../../persistence/models.js";
 import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../dtos/task.dto.js";
 import { NotFoundError } from "../errors.js";
 

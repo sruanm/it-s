@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import 'reflect-metadata'
 
-import { AppDataSource } from './persistence/typeorm/data-source.js'
+import { AppDataSource } from './persistence/data-source.js'
 import { taskRouter } from './presentation/routers/task.router.js'
 import { errorMiddleware, logMidlleware } from './presentation/middlewares.js'
 import { authRouter } from './presentation/routers/auth.router.js'
