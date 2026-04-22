@@ -1,6 +1,6 @@
 import { Router } from "express";
-import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../../core/dtos/task.dto.js";
-import { TaskController } from "../../controllers/task.controller.js";
+import type { CreateTaskDTO, ListTasksQueryParamsDTO } from "../core/dtos/task.dto.js";
+import { TaskController } from "../controllers/task.controller.js";
 
 export const taskRouter = Router()
 

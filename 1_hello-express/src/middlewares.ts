@@ -1,7 +1,8 @@
 import type { NextFunction, Request, Response } from 'express'
-import { UnauthorizedError } from '../core/errors.js';
-import { jwtProvider } from '../lib/jwt.js';
-import { injector } from '../dependencies.js';
+import { UnauthorizedError } from './core/errors.js';
+import { jwtProvider } from './lib/jwt.js';
+import { AppDataSource } from './persistence/data-source.js';
+import { User } from './persistence/models.js';
 
 export function logMidlleware(req: Request, _res: Response, next: NextFunction) {
     console.info(`[${req.method}] ${req.url}`)
@@ -25,13 +26,14 @@ export async function tokenMiddleware(req: Request, _res: Response, next: NextFu
         return unauthorized()
     }
 
-    const decodedEmail = jwtProvider.decode(token);
+    const email = jwtProvider.decode(token);
 
-    if (!decodedEmail) {
+    if (!email) {
         return unauthorized()
     }
 
-    const user = await injector.userRepository.findByEmail(decodedEmail);
+    const repo = AppDataSource.getRepository(User)
+    const user = await repo.findBy({ email });
 
     if (!user) {
         return unauthorized()

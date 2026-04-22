@@ -3,9 +3,9 @@ import cors from 'cors'
 import 'reflect-metadata'
 
 import { AppDataSource } from './persistence/data-source.js'
-import { taskRouter } from './presentation/routers/task.router.js'
-import { errorMiddleware, logMidlleware, tokenMiddleware } from './presentation/middlewares.js'
-import { authRouter } from './presentation/routers/auth.router.js'
+import { taskRouter } from './routers/task.router.js'
+import { errorMiddleware, logMidlleware, tokenMiddleware } from './middlewares.js'
+import { authRouter } from './routers/auth.router.js'
 
 async function main() {
     const app = express()

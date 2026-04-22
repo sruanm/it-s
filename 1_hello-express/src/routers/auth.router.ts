@@ -1,7 +1,7 @@
 import { Router } from "express";
-import type { SignRequestDTO } from "../../core/dtos/auth.dto.js";
-import { loginUseCase, signupUseCase } from "../../core/use-cases/auth.logic.js";
-import { AppError } from "../../core/errors.js";
+import type { SignRequestDTO } from "../core/dtos/auth.dto.js";
+import { loginUseCase, signupUseCase } from "../core/use-cases/auth.logic.js";
+import { AppError } from "../core/errors.js";
 
 export const authRouter = Router();
 
