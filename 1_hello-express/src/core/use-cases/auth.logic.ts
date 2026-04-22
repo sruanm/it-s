@@ -1,7 +1,7 @@
 import { injector } from "../../dependencies.js";
 import type { SignRequestDTO, SignResponseDTO } from "../dtos/auth.dto.js";
 import { AppError, UnauthorizedError } from "../errors.js";
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcryptjs'
 
 export async function signupUseCase({ email, password }: SignRequestDTO): Promise<SignResponseDTO> {
     const userRepository = injector.userRepository
