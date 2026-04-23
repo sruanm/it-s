@@ -1,4 +1,4 @@
-import { Entity, Column, OneToMany, ManyToOne, type Relation } from "typeorm";
+import { Entity, Column, OneToMany, ManyToOne, type Relation, ManyToMany, JoinTable } from "typeorm";
 
 @Entity()
 export class Task {
@@ -18,6 +18,9 @@ export class Task {
 
     @ManyToOne(() => User, (user) => user.tasks)
     user!: Relation<User>
+
+    @ManyToMany(() => Tag, (tag) => tag.tasks)
+    tags!: Relation<Tag[]>
 }
 
 @Entity()
@@ -32,5 +35,18 @@ export class User {
     password!: string;
 
     @OneToMany(() => Task, (task) => task.user)
+    @JoinTable() // We keep on the side where whe gonna make more manipulations
+    tasks!: Relation<Task[]>
+}
+
+@Entity()
+export class Tag {
+    @Column({ generated: true, primary: true })
+    id!: number
+
+    @Column()
+    content!: string
+
+    @ManyToMany(() => Task, (task) => task.tags)
     tasks!: Relation<Task[]>
 }
