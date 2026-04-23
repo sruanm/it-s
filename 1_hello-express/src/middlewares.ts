@@ -33,7 +33,7 @@ export async function tokenMiddleware(req: Request, _res: Response, next: NextFu
     }
 
     const repo = AppDataSource.getRepository(User)
-    const user = await repo.findBy({ email });
+    const user = await repo.findOneBy({ email });
 
     if (!user) {
         return unauthorized()

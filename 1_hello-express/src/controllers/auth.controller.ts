@@ -51,9 +51,9 @@ export class AuthController {
 
             const newUser = repo.create({ email, password: hashedPassword })
 
-            const record = await repo.save(newUser)
+            const { password: _, ...safeUser } = await repo.save(newUser)
 
-            return res.status(200).json(record);
+            return res.status(200).json(safeUser);
         } catch (err) {
             return next(err)
         }
